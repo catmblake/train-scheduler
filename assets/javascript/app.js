@@ -5,25 +5,27 @@ var config = {
     projectId: "train-scheduler-7f5fd",
     storageBucket: "train-scheduler-7f5fd.appspot.com",
     messagingSenderId: "215035253914"
-  };
-  firebase.initializeApp(config);
+};
+firebase.initializeApp(config);
 
 var dataRef = firebase.database();
 
-// VARIABLES
+//Variables to hold the user input
 var trainName = "";
 var destination = "";
-var firstTime = 0;
-var frequency= 0;
+var firstTime = "";
+var frequency = "";
 
-$("#add-train").on("click", function(event) {
+//Preventing the page from refreshing when user clicks submit button
+$("#add-train").on("click", function (event) {
     event.preventDefault();
-    
+    //Setting values of these variables to user input
     trainName = $("#train-input").val().trim();
     destination = $("#destination-input").val().trim();
     firstTime = $("#first-time-input").val().trim();
     frequency = $("#frequency-input").val().trim();
 
+    //Creating train object with keys and values and pushing it to be stored in firebase
     var trainObject = {
         name: trainName,
         destination: destination,
@@ -34,4 +36,9 @@ $("#add-train").on("click", function(event) {
 
     dataRef.ref().push(trainObject);
     console.log(trainObject);
+    //Resetting the form to empty the input fields
+    $("#train-input").val("");
+    $("#destination-input").val("");
+    $("#first-time-input").val("");
+    $("#frequency-input").val("");
 });
