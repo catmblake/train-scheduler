@@ -35,7 +35,6 @@ $("#add-train").on("click", function (event) {
     };
 
     dataRef.ref().push(trainObject);
-    console.log(trainObject);
     //Resetting the form to empty the input fields
     $("#train-input").val("");
     $("#destination-input").val("");
@@ -49,16 +48,22 @@ dataRef.ref().on("child_added", function (childSnapshot) {
     var destination = childSnapshot.val().destination;
     var firstTime = childSnapshot.val().first;
     var frequency = childSnapshot.val().frequency;
-    console.log("Train: " + trainName + ". Destination: " + destination);
 
     //Using moment js to format the times and perform calculations for the train schedules
     var momentTrainStart = moment(firstTime, "HH:mm").subtract(1, "years");
-    console.log("First Train: " + momentTrainStart);
     var remainder = moment().diff(momentTrainStart, "minutes") % frequency;
-    console.log("Remainder from train frequency division: " + remainder);
-    console.log("Frequency: " + frequency + " minutes")
     var minsAway = frequency - remainder;
-    console.log("Minutes until next train: " + minsAway);
     var nextArrival = moment().add(minsAway, "minutes").format("HH:mm");
-    console.log("Next train arrives at: " + nextArrival);
+
+    //Creating the new row of data for the train schedule display
+    var newRow = $("<tr>").append(
+        $("<td id=data-name>").text(trainName),
+        $("<td id=data-destination>").text(destination),
+        $("<td id=data-frequency>").text(frequency),
+        $("<td id=data-next-arrival>").text(nextArrival),
+        $("<td id=data-minutes-away>").text(minsAway)
+    );
+
+    //Appending the new row to the table.
+    $("tbody").append(newRow);
 });
