@@ -49,8 +49,16 @@ dataRef.ref().on("child_added", function (childSnapshot) {
     var destination = childSnapshot.val().destination;
     var firstTime = childSnapshot.val().first;
     var frequency = childSnapshot.val().frequency;
-    console.log("Train name: " + trainName);
-    console.log("Destination: " + destination);
-    console.log("First Train Time: " + firstTime);
-    console.log("Train Frequency: " + frequency + " minutes");
+    console.log("Train: " + trainName + ". Destination: " + destination);
+
+    //Using moment js to format the times and perform calculations for the train schedules
+    var momentTrainStart = moment(firstTime, "HH:mm").subtract(1, "years");
+    console.log("First Train: " + momentTrainStart);
+    var remainder = moment().diff(momentTrainStart, "minutes") % frequency;
+    console.log("Remainder from train frequency division: " + remainder);
+    console.log("Frequency: " + frequency + " minutes")
+    var minsAway = frequency - remainder;
+    console.log("Minutes until next train: " + minsAway);
+    var nextArrival = moment().add(minsAway, "minutes").format("HH:mm");
+    console.log("Next train arrives at: " + nextArrival);
 });
