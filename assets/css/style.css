@@ -1,0 +1,26 @@
+.card-header {
+    font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+.card-body {
+    font-size: 14px;
+}
+}
+
+@media screen and (max-width: 640px) {
+    .card-body{
+        font-size: 12px;
+    }
+}
+@media screen and (max-width: 475px) {
+    .card-body{
+        font-size: 12px;
+    }
+    #th-train-name {
+        display: none;
+    }
+    #data-name {
+        display: none;
+    }
+}
