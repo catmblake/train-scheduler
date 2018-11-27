@@ -66,4 +66,8 @@ dataRef.ref().on("child_added", function (childSnapshot) {
 
     //Appending the new row to the table.
     $("tbody").append(newRow);
+
+    // Creating error object function to track errors in console should they occur
+}, function (errorObject) {
+    console.log("Error: " + errorObject);
 });
