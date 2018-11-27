@@ -42,3 +42,15 @@ $("#add-train").on("click", function (event) {
     $("#first-time-input").val("");
     $("#frequency-input").val("");
 });
+
+//Getting train data from firebase and storing in the variables I created
+dataRef.ref().on("child_added", function (childSnapshot) {
+    var trainName = childSnapshot.val().name;
+    var destination = childSnapshot.val().destination;
+    var firstTime = childSnapshot.val().first;
+    var frequency = childSnapshot.val().frequency;
+    console.log("Train name: " + trainName);
+    console.log("Destination: " + destination);
+    console.log("First Train Time: " + firstTime);
+    console.log("Train Frequency: " + frequency + " minutes");
+});
