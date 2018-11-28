@@ -1,3 +1,4 @@
+// Initialize firebase
 var config = {
     apiKey: "AIzaSyCVJXOqJoyHumv4_t8rLVitp_KL5A-2uiM",
     authDomain: "train-scheduler-7f5fd.firebaseapp.com",
@@ -35,7 +36,7 @@ $("#add-train").on("click", function (event) {
     };
     // Creating if statement to prevent submission of incomplete train data
     if (trainName && destination && firstTime && frequency){
-    dataRef.ref().push(trainObject);
+    dataRef.ref("/trains").push(trainObject);
     //Resetting the form to empty the input fields
     $("#train-input").val("");
     $("#destination-input").val("");
@@ -48,7 +49,7 @@ $("#add-train").on("click", function (event) {
 });
 
 //Getting train data from firebase and storing in the variables I created
-dataRef.ref().on("child_added", function (childSnapshot) {
+dataRef.ref("/trains").on("child_added", function (childSnapshot) {
     var trainName = childSnapshot.val().name;
     var destination = childSnapshot.val().destination;
     var firstTime = childSnapshot.val().first;
