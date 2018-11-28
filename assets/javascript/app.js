@@ -33,13 +33,18 @@ $("#add-train").on("click", function (event) {
         frequency: frequency,
         dateAdded: firebase.database.ServerValue.TIMESTAMP
     };
-
+    // Creating if statement to prevent submission of incomplete train data
+    if (trainName && destination && firstTime && frequency){
     dataRef.ref().push(trainObject);
     //Resetting the form to empty the input fields
     $("#train-input").val("");
     $("#destination-input").val("");
     $("#first-time-input").val("");
     $("#frequency-input").val("");
+    }
+    else {
+        alert("Please complete all train information fields")
+    }
 });
 
 //Getting train data from firebase and storing in the variables I created
